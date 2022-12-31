@@ -20,10 +20,10 @@ for row in range(1, num*2 + 1):
         for col in range(1, row):
             print(" ", end="")
         for star in range(num, row - 1, -1):
-            print("*", "", end="")
+            print("*", end=" ")
     else:
         for col in range(num*2, row, -1):
             print(" ", end="")
         for star in range(1, (row - num)+1):
-            print("*", "", end="")
+            print("*", end=" ")
     print("")
