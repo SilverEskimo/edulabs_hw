@@ -12,3 +12,19 @@ goods = [
 ]
 
 # please note to the 2 cases that are there current > longest AND current = longest
+longest_word = len("")
+longest_words = [longest_word]
+longest_indexes = [("", "")]
+
+for i, good in enumerate(goods):
+    for j, fruit in enumerate(good):
+        if len(fruit) > longest_word:
+            longest_word = len(fruit)
+            longest_words = [fruit]
+            longest_indexes = [(i, j)]
+        elif len(fruit) == longest_word:
+            longest_words.append(fruit)
+            longest_indexes.append((i, j))
+
+for i, word in enumerate(longest_words):
+    print(f"The longest word is: {word} and its index is: {longest_indexes[i]}")

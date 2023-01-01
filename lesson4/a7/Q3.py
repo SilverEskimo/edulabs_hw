@@ -11,7 +11,7 @@ b_list = []
 
 for good in goods:
     for word in good:
-        if 'b' in word:
+        if 'b' in word.lower():
             b_list.append(word)
 print(b_list)
 
