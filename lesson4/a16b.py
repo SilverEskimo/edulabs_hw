@@ -8,20 +8,20 @@
 import random
 
 
-id_num = input("This program generates a random valid ID number. You can enter up to 8 digits to start with or n"
-                f" for a completely random ID number: ").strip()
-while id_num != "n" and not id_num.isdigit() and len(id_num) > 8:
-    id_num = input("Wrong input, please try again: ")
+id_num = input("This program generates a random valid ID number. You can enter up to 8 digits to start with or empty "
+                f"for a completely random ID number: ").strip()
 
+while (id_num != "" and not id_num.isdigit()) or len(id_num) > 8:
+    id_num = input("Wrong input, please try again: ")
 
 res_of_sum = 0
 res_to_calc = 0
 
-if len(id_num) == 0 or id_num == 'n':
+if len(id_num) == 0:
     id_num = ""
     for num in range(8):
         id_num += str(random.randint(0, 9))
-elif 0 < len(id_num) < 8:
+elif 0 < len(id_num) <= 8:
     for num in range(8 - len(id_num)):
         id_num += str(random.randint(0, 9))
 
