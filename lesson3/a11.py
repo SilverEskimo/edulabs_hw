@@ -4,7 +4,7 @@ coffee_list = ["Espresso", "Doppio", "Lungo", "Ristretto", "Macchiato", "Corrett
                "Frappe", "Cappuccino Freddo", "Caramel Frappe", "Espresso Laccino"]
 
 user_input = input("Please enter the time in 24h format (hh:mm) and the number of friends drinking "
-                   "together (enter 1 if you're alone): ").strip().split(" ")
+                   "together (enter 1 if you're alone)\n(For example - 11:00 3): ").strip().split(" ")
 while (len(user_input) < 2 or len(user_input[0]) != 5 or user_input[0][2] != ":" or int(user_input[0][:2]) > 24 \
        or int(user_input[0][3:]) > 59) or int(user_input[1]) < 1:
     user_input = input("Wrong input, please try again: ").strip().split(" ")
@@ -26,7 +26,7 @@ coffee_list_len = len(coffee_list)
 num_of_coffee_to_drink = 0
 skip_coffees = False
 
-if coffees_to_skip:
+if coffees_to_skip[0]:
     for i, coffee in enumerate(coffees_to_skip):
         coffees_to_skip[i] = int(coffee) - 1
     for i, coffee in enumerate(coffee_list):
