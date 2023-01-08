@@ -30,7 +30,7 @@ def remove_empty_or_none_items(keys_to_remove: list, some_dict: dict):
 def check_for_empty_or_none(some_dict: dict):
     empty_items = []
     for key, value in some_dict.items():
-        if value is None or not value:
+        if not value:
             empty_items.append(key)
     return empty_items
 
