@@ -2,7 +2,7 @@
 # second-largest number in the list.
 # You can assume that there are no non-numeric values in the list.
 # You are not allowed to use any built-in function like sort() / sorted() / min() / max() or similar!
-nums_list = [3, 0, 4.5, 4.5]
+nums_list = [54, -1, 45, 987, 5, 2, 65, 7, 12]
 
 
 def find_second_largest(nums: list) -> float | None:
@@ -27,7 +27,7 @@ def find_second_largest(nums: list) -> float | None:
         elif num <= largest < second_largest:
             temp = second_largest
             second_largest = largest
-            largest = second_largest
+            largest = temp
     return second_largest
 
 
