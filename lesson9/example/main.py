@@ -7,7 +7,7 @@ if __name__ == '__main__':
             "address": "Rishon",
             "phone": 1023123
     }
-    daniel_ba = BankAccount(321321, acc_holder, 0, 0, 100)
+    daniel_ba = BankAccount(321321, acc_holder, 0, 0, 100, True)
 
     if daniel_ba.deposit(200, "nis"):
         print("Success deposit")
