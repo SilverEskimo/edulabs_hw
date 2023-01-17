@@ -3,6 +3,7 @@
 # convert() - convert specified amount from shekels to usd or vise versa inside the account if applicable.
 # Think about edge cases!
 from datetime import date
+
 class BankAccount:
     def __init__(
             self,
@@ -10,7 +11,8 @@ class BankAccount:
             acc_holder: dict,
             nis_balance: float,
             usd_balance: float,
-            credit_limit: float
+            credit_limit: float,
+            is_usd_allowed: bool
     ):
         self.account_number = account_number
         self.account_holder = {
@@ -23,6 +25,7 @@ class BankAccount:
         self.usd_balance = usd_balance
         self.credit_limit = credit_limit
         self.transactions_data = {}
+        self.usd_allowed = is_usd_allowed
 
     #    "17-01-2023": [
     #                 {
@@ -37,7 +40,7 @@ class BankAccount:
 
     def deposit(self, deposit_amount: float, currency: str) -> bool:
         action_date = str(date.today())
-        if currency == "usd":
+        if currency == "usd" and self.usd_allowed:
             self.usd_balance += deposit_amount
             self.update_transaction_data(action_date, "deposit", deposit_amount, "usd")
             return True
@@ -47,7 +50,7 @@ class BankAccount:
 
     def withdraw(self, withdraw_amount: float, currency: str) -> bool:
         action_date = str(date.today())
-        if currency == "usd" and self.usd_balance - withdraw_amount >= 0:
+        if currency == "usd" and self.usd_allowed and self.usd_balance - withdraw_amount >= 0:
             self.usd_balance -= withdraw_amount
             self.update_transaction_data(action_date, "withdraw", withdraw_amount, "usd")
             return True
@@ -59,7 +62,7 @@ class BankAccount:
 
     def convert(self, convert_amount: float, from_currency: str) -> bool:
         action_date = str(date.today())
-        if from_currency == "usd" and self.withdraw(convert_amount, "usd"):
+        if from_currency == "usd" and self.usd_allowed and self.withdraw(convert_amount, "usd"):
             nis_amount = convert_amount * 3.5
             self.deposit(nis_amount, "nis")
             self.update_transaction_data(action_date, "convert", convert_amount, "usd")
@@ -72,7 +75,7 @@ class BankAccount:
         return False
 
     def get_current_balance(self, currency: str):
-        if currency == "usd":
+        if currency == "usd" and self.usd_allowed:
             return self.usd_balance
         return self.nis_balance
 
