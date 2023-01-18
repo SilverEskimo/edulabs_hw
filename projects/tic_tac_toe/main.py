@@ -16,7 +16,7 @@ if __name__ == '__main__':
         "board_size": board_size,
         "char": ["X", "O"],
         "board_cells_list": [],
-        "cells_list": []
+        "cells_list": [],
     }
     map_cells(current_state)
     print_good_luck(names, board_size)
@@ -29,6 +29,9 @@ if __name__ == '__main__':
             if not win:
                 update_current_player(current_state)
                 print_board(board_size, current_state)
+                if win is None:
+                    print("\tThe game is stuck, please try again")
+                    break
             else:
                 print_winner(current_state)
                 break

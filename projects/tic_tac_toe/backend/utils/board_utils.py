@@ -24,9 +24,9 @@ def update_current_player(current_state: dict):
     Updates the current player in the current game state
     :param current_state:
     :return:
-        Void
+        None
     """
-    current_state["current_player"] = 0 if current_state["current_player"] == 0 else current_state["current_player"] = 1
+    current_state["current_player"] = 0 if current_state["current_player"] == 1 else 1
 
 
 def get_state_params(current_state: dict) -> tuple:
@@ -43,54 +43,94 @@ def get_state_params(current_state: dict) -> tuple:
     return current_board, current_player, board_size, current_char
 
 
-def check_win(current_state: dict, option_to_win) -> bool:
+def check_win(current_state: dict) -> bool | None:
     """
     Checks if there's a winner in any possible option
     :param current_state: current game's state
-    :param option_to_win: options for the win (row, col or diagonal)
     :return:
-    True if there's a winner, else False
+    True if there's a winner, else False (None in case of a stuck game)
     """
-    current_board, current_player, board_size, current_char = get_state_params(current_state)
-    count = 0
-    for i, row in enumerate(current_board):
-        for j, col in enumerate(current_board):
-            match option_to_win:
-                case "row":
-                    if not current_board[i][j]:
-                        count == 0
-                        break
-                    elif current_board[i][j] == current_char and count != board_size:
-                        count += 1
-                    else:
-                        count == 0
-                case "col":
-                    if not current_board[i][0]:
-                        count == 0
-                        break
-                    elif current_board[i][0] == current_char and count != board_size:
-                        count += 1
-                        break
-                    else:
-                        count == 0
-                case "diagonal":
-                    if not current_board[i][i]:
-                        count == 0
-                        break
-                    elif current_board[i][i] == current_char and count != board_size:
-                        count += 1
-                        break
-                    elif current_board[i][-(i+1)] == current_char and count != board_size:
-                        count += 1
-                        break
-                    else:
-                        count == 0
-    if count == board_size:
+    diagonal = check_diagonal_win(current_state)
+    row = check_row_win(current_state)
+    col = check_col_win(current_state)
+    if diagonal is None and row and None and col is None:
+        return
+    return diagonal or row or col
+
+
+def check_row_win(current_state: dict) -> bool | None:
+    """
+    Check if there's a winner by row
+    :param current_state: current game's state
+    :return:
+    True if there's a winner, else False (None in case of a stuck game)
+    """
+    current_board, _, board_size, current_char = get_state_params(current_state)
+    count_stuck_rows = 0
+    for i in range(1, board_size + 1):
+        row_set = set(current_board[i - 1])
+        if len(row_set) == 1 and current_char in row_set:
+            return True
+        elif len(row_set) > 1 and len({'X', 'O'}.intersection(row_set)) == 2:
+            count_stuck_rows += 1
+        if count_stuck_rows == board_size:
+            return
+    return False
+
+
+def check_diagonal_win(current_state: dict) -> bool | None:
+    """
+    Check if there's a winner by one of the two possible diagonals
+    :param current_state: current game's state
+    :return:
+    True if there's a winner, else False (None in case of a stuck game)
+    """
+    current_board, _, board_size, current_char = get_state_params(current_state)
+    first_diagonal_set = set()
+    second_diagonal_set = set()
+    for i in range(1, board_size + 1):
+        first_diagonal_set.add(current_board[i - 1][i - 1])
+        second_diagonal_set.add(current_board[i - 1][-i])
+    if (len(first_diagonal_set) == 1 and current_char in first_diagonal_set) or \
+            (len(second_diagonal_set) == 1 and current_char in second_diagonal_set):
         return True
+    elif len(first_diagonal_set) > 1 and len({'X', 'O'}.intersection(first_diagonal_set)) == 2 and \
+            len(second_diagonal_set) > 1 and len({'X', 'O'}.intersection(second_diagonal_set)) == 2:
+        return
+    return False
+
+
+def check_col_win(current_state: dict) -> bool | None:
+    """
+    Check if there's a winner by a column
+    :param current_state: current game's state
+    :return:
+    True if there's a winner, else False (None in case of a stuck game)
+    """
+    current_board, _, board_size, current_char = get_state_params(current_state)
+    count = 0
+    count_stuck_cols = 0
+    for i in range(1, board_size + 1):
+        for j in range(1, board_size + 1):
+            if current_board[j - 1][i - 1] == current_char:
+                count += 1
+            elif current_board[j - 1][i - 1] is not None and count >= 1:
+                count_stuck_cols += 1
+        if count_stuck_cols == board_size:
+            return
+        if count == board_size:
+            return True
+        count = 0
     return False
 
 
 def map_cells(current_state: dict) -> None:
+    """
+    Create a list of all existing cells in the board
+    :param current_state: current game's state
+    :return:
+    None
+    """
     if not current_state["cells_list"]:
         board_size = current_state.get("board_size")
         for i in range(board_size):

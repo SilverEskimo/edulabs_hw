@@ -42,11 +42,8 @@ def print_board(board_size, current_state: dict = False, initiate=False):
                     if initiate:
                         if count == 2:
                             current_state["board_cells_list"].append((row, col))
-                            print(" ", end="")
-                        else:
-                            print(" ", end="")
+                        print(" ", end="")
                     elif count == 2:
-                        char_to_print = current_state["char"][current_state["current_player"]]
                         mapped_index = current_state["cells_list"][(current_state["board_cells_list"].index((row, col)))]
                         if current_state["current_board"][mapped_index[0]][mapped_index[1]]:
                             print(current_state["current_board"][mapped_index[0]][mapped_index[1]], end="")

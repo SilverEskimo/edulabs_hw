@@ -1,9 +1,3 @@
-# transactions data - which action was performed when. transaction is an action performed
-# on your account - deposit, withdrawal, conversion. For each transaction you should store the following:
-# the date of the transaction (string in format dd-mm-yyyy)
-# transaction type (deposit / withdrawal / conversion)
-# amount
-# currency
 from datetime import date
 
 
@@ -49,10 +43,10 @@ class BankAccount:
 
     def deposit(self, amount_to_deposit: float, currency: str) -> bool:
         if currency.lower() == "usd":
-            if not self.__allowed_usd:
-                return False
-            else:
+            if self.__allowed_usd:
                 self.__usd_balance += amount_to_deposit
+            else:
+                return False
         else:
             self.__shekel_balance += amount_to_deposit
         self._add_transaction(self._create_tx_log("deposit", currency, amount_to_deposit))
