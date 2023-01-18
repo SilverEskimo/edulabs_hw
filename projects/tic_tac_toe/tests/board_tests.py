@@ -1,5 +1,3 @@
-from pprint import pprint
-from projects.tic_tac_toe.frontend.utils.prints import print_board
 from projects.tic_tac_toe.backend.utils.board_utils import *
 
 
