@@ -89,7 +89,7 @@ class CountryCalendar:
         while today.weekday() in self.__weekend_days or today in self.__public_holidays:
             today += datetime.timedelta(1)
         end_date = today + datetime.timedelta(7)
-        return (self.total_vacation_days(today, end_date, next_vacation=True)).strftime("%B %d, %Y")
+        return self.total_vacation_days(today, end_date, next_vacation=True).date()
 
     def next_working_day(self):
         """
@@ -100,7 +100,7 @@ class CountryCalendar:
         while today.weekday() not in self.__work_days:
             today += datetime.timedelta(1)
         end_date = today + datetime.timedelta(7)
-        return (self.total_working_days(today, end_date, next_working=True)).strftime("%B %d, %Y")
+        return self.total_working_days(today, end_date, next_working=True).date()
 
     def longest_holiday_span(self, from_date, to_date):
         """
