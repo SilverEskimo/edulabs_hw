@@ -80,7 +80,7 @@ class CountryCalendar:
 
         return working_hours * self.total_working_days(from_datetime, to_datetime)
 
-    def next_vacation_day(self) -> str:
+    def next_vacation_day(self) -> datetime.date:
         """
         return datetime.date object of the upcoming vacation day starting from now
         :return:
@@ -91,7 +91,7 @@ class CountryCalendar:
         end_date = today + datetime.timedelta(7)
         return self.total_vacation_days(today, end_date, next_vacation=True).date()
 
-    def next_working_day(self):
+    def next_working_day(self) -> datetime.date:
         """
         return datetime.date object of the upcoming working day starting from now
         :return:
