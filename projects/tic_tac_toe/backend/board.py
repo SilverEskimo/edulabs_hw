@@ -1,4 +1,4 @@
-from utils.board_utils import *
+from backend.utils.board_utils import *
 
 
 def initialize_board(board_size: int) -> list[list[int]]:

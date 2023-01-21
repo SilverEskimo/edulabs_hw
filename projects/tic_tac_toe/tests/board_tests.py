@@ -1,6 +1,3 @@
-from projects.tic_tac_toe.backend.utils.board_utils import *
-
-
 if __name__ == '__main__':
     current_state = {
         "current_player": 0,

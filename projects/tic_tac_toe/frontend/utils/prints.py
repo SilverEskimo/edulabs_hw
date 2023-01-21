@@ -60,7 +60,7 @@ def print_winner(current_state: dict):
     winner_name = current_state.get("players_names")[current_player]
     print_winner_pattern()
     print_board(current_state["board_size"], current_state)
-    print(f"\t\tCongratulations {winner_name.title()}. You won!")
+    print(f"\t Congratulations {winner_name.title()}. You won!")
 
 
 def print_winner_pattern():

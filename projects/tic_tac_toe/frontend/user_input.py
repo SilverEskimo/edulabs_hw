@@ -1,4 +1,4 @@
-from utils.user_input_validation import *
+from frontend.utils.user_input_validation import *
 
 
 def get_names() -> tuple:
@@ -46,7 +46,7 @@ def check_if_taken(user_move: tuple, current_state: dict) -> tuple:
     row, col = user_move
     while True:
         if current_state["current_board"][int(row)-1][int(col)-1]:
-            move_tuple = input(f"This spot is taken. Please try again: ").strip(), current_state
+            move_tuple = input(f"This spot is taken. Please try again: ").strip().split()
             row, col = move_tuple
         else:
             break
