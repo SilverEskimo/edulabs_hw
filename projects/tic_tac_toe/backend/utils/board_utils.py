@@ -1,24 +1,3 @@
-from projects.tic_tac_toe.frontend.utils.user_input_validation import user_move_validation
-
-
-def check_if_taken(user_move: tuple, current_state: dict) -> tuple:
-    """
-    Check if the cell that was selected is already taken
-    :param user_move: Current move's coordinates
-    :param current_state: Current game's state
-    :return:
-    Returns a tuple with a valid move
-    """
-    row, col = user_move
-    while True:
-        if current_state["current_board"][int(row)-1][int(col)-1]:
-            move_tuple = user_move_validation(input(f"This spot is taken. Please try again: ").strip(), current_state)
-            row, col = move_tuple
-        else:
-            break
-    return row, col
-
-
 def update_current_player(current_state: dict):
     """
     Updates the current player in the current game state

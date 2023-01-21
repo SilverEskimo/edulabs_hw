@@ -1,6 +1,6 @@
-from projects.tic_tac_toe.backend.board import *
-from projects.tic_tac_toe.frontend.user_input import *
-from projects.tic_tac_toe.frontend.utils.prints import *
+from backend.board import *
+from frontend.user_input import *
+from frontend.utils.prints import *
 
 if __name__ == '__main__':
 

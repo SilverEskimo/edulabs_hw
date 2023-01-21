@@ -1,4 +1,4 @@
-from projects.tic_tac_toe.backend.utils.board_utils import *
+from utils.board_utils import *
 
 
 def initialize_board(board_size: int) -> list[list[int]]:

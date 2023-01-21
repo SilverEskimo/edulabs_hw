@@ -1,5 +1,4 @@
-from projects.tic_tac_toe.backend.utils.board_utils import *
-from projects.tic_tac_toe.frontend.utils.user_input_validation import *
+from utils.user_input_validation import *
 
 
 def get_names() -> tuple:
@@ -36,5 +35,21 @@ def get_user_move(current_state: dict, taken=False):
     return move_tuple
 
 
+def check_if_taken(user_move: tuple, current_state: dict) -> tuple:
+    """
+    Check if the cell that was selected is already taken
+    :param user_move: Current move's coordinates
+    :param current_state: Current game's state
+    :return:
+    Returns a tuple with a valid move
+    """
+    row, col = user_move
+    while True:
+        if current_state["current_board"][int(row)-1][int(col)-1]:
+            move_tuple = input(f"This spot is taken. Please try again: ").strip(), current_state
+            row, col = move_tuple
+        else:
+            break
+    return row, col
 
 
