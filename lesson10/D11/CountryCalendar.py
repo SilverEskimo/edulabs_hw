@@ -97,7 +97,7 @@ class CountryCalendar:
         :return:
         """
         today = datetime.datetime.now()
-        while today.weekday() in self.__weekend_days or today in self.__public_holidays:
+        while today.weekday() not in self.__work_days:
             today += datetime.timedelta(1)
         end_date = today + datetime.timedelta(7)
         return (self.total_working_days(today, end_date, next_working=True)).strftime("%B %d, %Y")
