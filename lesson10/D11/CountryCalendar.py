@@ -26,15 +26,15 @@ class CountryCalendar:
         :param from_date:
         :param to_date:
         :return:
-        Number of working days - int
+        Number of working days - int | next working day if next_param=True - datetime.datetime
         """
         working_days = 0
         start_date = from_date
         while start_date <= to_date:
             if start_date.weekday() not in self.__weekend_days \
-                    and start_date not in self.__public_holidays:
+                    and start_date.date not in self.__public_holidays:
                 working_days += 1
-                if next_working and working_days == 1:
+                if next_working and start_date != from_date:
                     return start_date
             start_date += datetime.timedelta(1)
         return working_days
@@ -48,15 +48,16 @@ class CountryCalendar:
         :param from_date:
         :param to_date:
         :return:
+        Number of vacations days - int | next vacation day if next_vacation=True - datetime.datetime
         """
         vacation_days = 0
         start_date = from_date
         while start_date <= to_date:
             if start_date.weekday() in self.__weekend_days \
-                    or start_date in self.__public_holidays:
+                    or start_date.date() in self.__public_holidays:
                 vacation_days += 1
-            if next_vacation and vacation_days == 1:
-                return start_date
+                if next_vacation and start_date != from_date:
+                    return start_date
             start_date += datetime.timedelta(1)
         return vacation_days
 
@@ -85,9 +86,8 @@ class CountryCalendar:
         return datetime.date object of the upcoming vacation day starting from now
         :return:
         """
+        # TODO - change delta from 7 to longest_holiday_span once implemented
         today = datetime.datetime.now()
-        while today.weekday() in self.__weekend_days or today in self.__public_holidays:
-            today += datetime.timedelta(1)
         end_date = today + datetime.timedelta(7)
         return self.total_vacation_days(today, end_date, next_vacation=True).date()
 
@@ -96,9 +96,8 @@ class CountryCalendar:
         return datetime.date object of the upcoming working day starting from now
         :return:
         """
+        # TODO - change delta from 7 to longest_holiday_span once implemented
         today = datetime.datetime.now()
-        while today.weekday() not in self.__work_days:
-            today += datetime.timedelta(1)
         end_date = today + datetime.timedelta(7)
         return self.total_working_days(today, end_date, next_working=True).date()
 
