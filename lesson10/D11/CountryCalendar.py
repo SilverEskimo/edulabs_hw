@@ -86,7 +86,6 @@ class CountryCalendar:
         return datetime.date object of the upcoming vacation day starting from now
         :return:
         """
-        # TODO - change delta from 7 to longest_holiday_span once implemented
         today = datetime.datetime.now()
         end_date = today + datetime.timedelta(7)
         return self.total_vacation_days(today, end_date, next_vacation=True).date()
