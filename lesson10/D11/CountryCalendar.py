@@ -3,13 +3,6 @@ import datetime
 MINS_IN_HOUR = 60
 WEEK_DAYS_SET = {0, 1, 2, 3, 4, 5, 6}
 WEEK_DAYS_DICT = {
-    "Sun": 6,
-    "Mon": 0,
-    "Tue": 1,
-    "Wed": 2,
-    "Thu": 3,
-    "Fri": 4,
-    "Sat": 5,
     "sun": 6,
     "mon": 0,
     "tue": 1,
@@ -17,13 +10,13 @@ WEEK_DAYS_DICT = {
     "thu": 3,
     "fri": 4,
     "sat": 5,
-    "Sunday": 6,
-    "Monday": 0,
-    "Tuesday": 1,
-    "Wednesday": 2,
-    "Thursday": 3,
-    "Friday": 4,
-    "Saturday": 5,
+    "sunday": 6,
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
 }
 
 
@@ -31,13 +24,13 @@ class CountryCalendar:
     def __init__(self, name: str, work_days: list, year: int, public_holidays: list):
         """
         Country Calendar class initiation
-        :param name:
-        :param work_days:
-        :param year:
-        :param public_holidays:
+        :param name: str - name of the calendar (for example: 'Israel')
+        :param work_days: list - working days (for example: ["Mon", "Tue", "Wed"...])
+        :param year: int - calendar's year (for example: 2023)
+        :param public_holidays: list - public holidays dates (for example: ["25/12/2023", "01/01/2023"...])
         """
         self.__name = name
-        self.__work_days = [WEEK_DAYS_DICT[day] for day in work_days]
+        self.__work_days = [WEEK_DAYS_DICT[day.lower()] for day in work_days]
         self.__year = year
         self.__public_holidays = [datetime.datetime.strptime(holiday, "%d/%m/%Y").date() for holiday in public_holidays]
         self.__weekend_days = WEEK_DAYS_SET - set(self.__work_days)
