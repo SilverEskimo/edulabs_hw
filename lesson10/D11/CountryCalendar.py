@@ -32,7 +32,7 @@ class CountryCalendar:
         start_date = from_date
         while start_date <= to_date:
             if start_date.weekday() not in self.__weekend_days \
-                    and start_date.date not in self.__public_holidays:
+                    and start_date.date() not in self.__public_holidays:
                 working_days += 1
                 if next_working and start_date != from_date:
                     return start_date
@@ -83,8 +83,8 @@ class CountryCalendar:
 
     def next_vacation_day(self) -> datetime.date:
         """
-        return datetime.date object of the upcoming vacation day starting from now
         :return:
+        return datetime.date object of the upcoming vacation day starting from now - datetime.date
         """
         today = datetime.datetime.now()
         end_date = today + datetime.timedelta(7)
@@ -92,20 +92,40 @@ class CountryCalendar:
 
     def next_working_day(self) -> datetime.date:
         """
-        return datetime.date object of the upcoming working day starting from now
         :return:
+        return datetime.date object of the upcoming working day starting from now - datetime.date
         """
-        # TODO - change delta from 7 to longest_holiday_span once implemented
         today = datetime.datetime.now()
-        end_date = today + datetime.timedelta(7)
+        end_date = today + datetime.timedelta(364)
         return self.total_working_days(today, end_date, next_working=True).date()
 
-    def longest_holiday_span(self, from_date, to_date):
+    def longest_holiday_span(self, from_date: datetime.date, to_date: datetime.date) -> (int, datetime.date):
         """
         given 2 datetime.date objects, return the amount of days and the beginning date of the longest vacation
         span between the given two dates.
         :param from_date:
         :param to_date:
         :return:
+        return the amount of days and the beginning date of the longest vacation - (int,datetime.date)
         """
-        pass
+        start_date = from_date
+        previous_date = from_date - datetime.timedelta(1)
+        longest_span = 0
+        span_count = 0
+        first_date = from_date
+        while start_date <= to_date:
+            if start_date.weekday() in self.__weekend_days or start_date in self.__public_holidays:
+                if previous_date + datetime.timedelta(1) == start_date:
+                    span_count += 1
+                if span_count > longest_span:
+                    longest_span = span_count
+                    if span_count == 1:
+                        first_date = start_date
+            else:
+                span_count = 0
+            previous_date = start_date
+            start_date += datetime.timedelta(1)
+        return longest_span, first_date
+
+    def __str__(self):
+        return f"Calendar Name: {self.__name}\nYear: {self.__year}\nPublic Holidays: {self.__public_holidays}"
