@@ -1,5 +1,6 @@
 import datetime
 
+MINS_IN_HOUR = 60
 WEEK_DAYS_SET = {0, 1, 2, 3, 4, 5, 6}
 WEEK_DAYS_DICT = {
     "Sun": 6,
@@ -104,7 +105,7 @@ class CountryCalendar:
         end_hour, end_min, _ = str(end_working_time).split(":")
         working_hours = int(end_hour) - int(start_hour)
 
-        minutes_to_add = (float(end_min) - float(start_min)) / 60
+        minutes_to_add = (float(end_min) - float(start_min)) / MINS_IN_HOUR
         working_hours += minutes_to_add
 
         return working_hours * self.total_working_days(from_datetime, to_datetime)
