@@ -61,7 +61,12 @@ class CountryCalendar:
             start_date += datetime.timedelta(1)
         return vacation_days
 
-    def total_working_hours(self, from_datetime, to_datetime, start_working_time, end_working_time) -> float:
+    def total_working_hours(self,
+                            from_datetime: datetime.datetime,
+                            to_datetime: datetime.datetime,
+                            start_working_time: datetime.time,
+                            end_working_time: datetime.time
+                            ) -> float:
         """
         given 2 datetime.datetime objects and 2 datetime.time objects, return total amount of working hours
         (float) between these two days
