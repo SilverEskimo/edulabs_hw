@@ -1,6 +1,29 @@
 import datetime
 
-WEEK_DAYS = {0, 1, 2, 3, 4, 5, 6}
+WEEK_DAYS_SET = {0, 1, 2, 3, 4, 5, 6}
+WEEK_DAYS_DICT = {
+    "Sun": 6,
+    "Mon": 0,
+    "Tue": 1,
+    "Wed": 2,
+    "Thu": 3,
+    "Fri": 4,
+    "Sat": 5,
+    "sun": 6,
+    "mon": 0,
+    "tue": 1,
+    "wed": 2,
+    "thu": 3,
+    "fri": 4,
+    "sat": 5,
+    "Sunday": 6,
+    "Monday": 0,
+    "Tuesday": 1,
+    "Wednesday": 2,
+    "Thursday": 3,
+    "Friday": 4,
+    "Saturday": 5,
+}
 
 
 class CountryCalendar:
@@ -13,10 +36,10 @@ class CountryCalendar:
         :param public_holidays:
         """
         self.__name = name
-        self.__work_days = work_days
+        self.__work_days = [WEEK_DAYS_DICT[day] for day in work_days]
         self.__year = year
-        self.__public_holidays = public_holidays
-        self.__weekend_days = WEEK_DAYS - set(work_days)
+        self.__public_holidays = [datetime.datetime.strptime(holiday, "%d/%m/%Y").date() for holiday in public_holidays]
+        self.__weekend_days = WEEK_DAYS_SET - set(self.__work_days)
 
     def total_working_days(self, from_date: datetime.date, to_date: datetime.date, next_working=False) -> \
             int | datetime.datetime:
@@ -113,19 +136,18 @@ class CountryCalendar:
         :return:
         return the amount of days and the beginning date of the longest vacation - (int,datetime.date)
         """
-        start_date = from_date
-        previous_date = from_date - datetime.timedelta(1)
+        start_date = from_date.date()
+        previous_date = (from_date - datetime.timedelta(1)).date()
         longest_span = 0
         span_count = 0
         first_date = from_date
-        while start_date <= to_date:
+        while start_date <= to_date.date():
             if start_date.weekday() in self.__weekend_days or start_date in self.__public_holidays:
                 if previous_date + datetime.timedelta(1) == start_date:
                     span_count += 1
                 if span_count > longest_span:
                     longest_span = span_count
-                    if span_count == 1:
-                        first_date = start_date
+                    first_date = start_date - datetime.timedelta(longest_span - 1)
             else:
                 span_count = 0
             previous_date = start_date
