@@ -32,7 +32,7 @@ def check_win(current_state: dict) -> bool | None:
     diagonal = check_diagonal_win(current_state)
     row = check_row_win(current_state)
     col = check_col_win(current_state)
-    if diagonal is None and row and None and col is None:
+    if diagonal is None and row is None and col is None:
         return
     return diagonal or row or col
 

@@ -34,7 +34,7 @@ def print_board(board_size, current_state: dict = False, initiate=False):
                 else:
                     print("-", end="")
                     count += 1
-            elif row % 2 == 0:
+            else:
                 if col == 1 or count == 4:
                     print("|", end="")
                     count = 1
@@ -60,7 +60,7 @@ def print_winner(current_state: dict):
     winner_name = current_state.get("players_names")[current_player]
     print_winner_pattern()
     print_board(current_state["board_size"], current_state)
-    print(f"\t Congratulations {winner_name.title()}. You won!")
+    print(f"\t  Congratulations {winner_name.title()}. You won!")
 
 
 def print_winner_pattern():

@@ -25,8 +25,7 @@ def get_user_move(current_state: dict, taken=False):
     player_name = current_state.get("players_names")[player_num]
     msg = f"It is {player_name}'s move. Please choose a valid row " \
           f"and column (separated by space): "
-    move = input(msg).strip()
-    move_tuple = user_move_validation(move, current_state)
+    move_tuple = user_move_validation(input(msg).strip(), current_state)
     if move_tuple:
         move_tuple = check_if_taken(move_tuple, current_state)
     else:
