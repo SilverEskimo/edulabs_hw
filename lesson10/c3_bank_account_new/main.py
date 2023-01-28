@@ -1,4 +1,4 @@
-from lesson10.c3_bank_account_new.BankAccount import *
+from lesson10.c3_bank_account_new.bank_account import BankAccount
 
 
 if __name__ == '__main__':

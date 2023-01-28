@@ -1,4 +1,7 @@
-class Apartment:
+from abc import ABC, abstractmethod
+
+
+class Apartment(ABC):
     def __init__(self,
                  address: str,
                  rooms_num: float,
@@ -30,8 +33,9 @@ class Apartment:
     def close_deal(self):
         self._set_deal_state("closed")
 
+    @abstractmethod
     def get_agency_fee(self):
-        return
+        pass
 
 
 
