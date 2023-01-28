@@ -78,7 +78,7 @@ class Bank:
         return customer
 
     def get_customer_by_id(self, customer_id: int):
-        if not self._customers_by_id[customer_id]:
+        if not self._customers_by_id.get(customer_id):
             return False
         return self._customers_by_id[customer_id]
 
