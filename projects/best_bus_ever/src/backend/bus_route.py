@@ -16,6 +16,8 @@ class BusRoute:
 
     def get_route(self):
         return self._scheduled_rides
+
+
     def __str__(self):
         return f"Line number: {self._line_number}\nScheduled Rides:\n{self._scheduled_rides}"
 
