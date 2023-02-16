@@ -20,7 +20,11 @@ class Menu(ABC):
     @classmethod
     def get_user_role(cls):
         print(cls.welcome)
-        msg = "Please choose your role:\n(1) Manager\n(2) Passenger\n(3) Exit\nYour choice (1 or 2): "
+        msg = "Please choose your role:\n" \
+              "(1) Manager\n" \
+              "(2) Passenger\n" \
+              "(3) Exit\n" \
+              "Your choice (1, 2 or 3): "
         while True:
             role_str = input(msg).strip()
             try:
@@ -31,7 +35,7 @@ class Menu(ABC):
         return role
 
     @staticmethod
-    def get_line_number(cls):
+    def get_line_number():
         msg = "Please enter the line number: "
         while True:
             try:
@@ -53,9 +57,10 @@ class Menu(ABC):
     @staticmethod
     def get_stops():
         return input("Please enter a list of stops separated by space: ").strip()
+
     @staticmethod
     def get_stop():
-        input("Please enter a bus stop: ").strip()
+        return input("Please enter a bus stop: ").strip()
 
     @abstractmethod
     def get_action(self):

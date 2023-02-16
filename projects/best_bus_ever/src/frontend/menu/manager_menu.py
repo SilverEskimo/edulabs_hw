@@ -21,12 +21,12 @@ class ManagerMenu(Menu):
         return input("Please enter the driver's name: ").strip()
 
     @staticmethod
-    def get_manager_password(wrong=False):
-        msg = "Please enter manager password: "
+    def get_manager_password(count, wrong=False):
+        msg = "Please enter manager password"
         if wrong:
-            password = input(f"Wrong! {msg}").strip()
+            password = input(f"Wrong! {msg} ({3-count} attempts left): ").strip()
         else:
-            password = input(msg).strip()
+            password = input(f"{msg}: ").strip()
         return password
 
     @staticmethod
@@ -43,7 +43,7 @@ class ManagerMenu(Menu):
         return valid_action
 
     @staticmethod
-    def get_update_option(self):
+    def get_update_option():
         msg = "Please choose what you want to update:\n(1) Origin\n(2) Destination\n(3) Stops\n(4) Back to main menu" \
               "\nYour choice (1, 2, 3 or 4. For multiple updates - provide choices separated by space): "
         while True:
@@ -57,7 +57,6 @@ class ManagerMenu(Menu):
                 print(f"\n{e}\n")
         return valid_actions
 
-    # TODO - change to get origin time, dest time and driver name
     def get_scheduled_ride(self):
         while True:
             try:
@@ -70,7 +69,3 @@ class ManagerMenu(Menu):
         driver_name = self.get_driver_name()
         return origin_time, destination_time, driver_name
 
-
-if __name__ == '__main__':
-    m = ManagerMenu()
-    m.get_action()

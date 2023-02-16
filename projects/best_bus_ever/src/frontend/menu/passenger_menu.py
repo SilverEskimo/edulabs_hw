@@ -8,8 +8,11 @@ class PassengerMenu(Menu):
         super().__init__()
 
     def get_action(self):
-        msg = "Please choose 1 of the following actions:\n(1) Search Route\n(2) Report Delay\n" \
-              "(3) Exit\nYour choice (1 or 2): "
+        msg = "Please choose 1 of the following actions:\n" \
+              "(1) Search Route\n" \
+              "(2) Report Delay\n" \
+              "(3) Exit\n" \
+              "Your choice (1, 2 or 3): "
         while True:
             try:
                 action = input(msg).strip()
@@ -32,7 +35,3 @@ class PassengerMenu(Menu):
                 print(f"\n{e}\n")
         return valid_search_term
 
-
-if __name__ == '__main__':
-    m = PassengerMenu()
-    m.get_action()

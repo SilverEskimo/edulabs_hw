@@ -1,4 +1,3 @@
-from pprint import pprint
 from best_bus_ever.src.utils.exceptions import *
 from best_bus_ever.src.frontend.menu.menu import Menu
 from best_bus_ever.src.frontend.menu.manager_menu import ManagerMenu
@@ -13,14 +12,14 @@ if __name__ == '__main__':
         if role == 1:
             mm = ManagerMenu()
             count = 0
-            password = mm.get_manager_password()
+            password = mm.get_manager_password(count)
             valid = best_bus_company.check_password(password)
             while not valid:
                 count += 1
                 if count == 3:
                     print("You have entered a wrong password 3 times. Exiting the program.")
                     exit(1)
-                password = mm.get_manager_password(wrong=True)
+                password = mm.get_manager_password(count, wrong=True)
                 valid = best_bus_company.check_password(password)
             while True:
                 action = mm.get_action()
@@ -52,7 +51,7 @@ if __name__ == '__main__':
                         line_number = mm.get_line_number()
                         while True:
                             try:
-                                pprint(f"\n{best_bus_company.get_route(line_number)}\n")
+                                print(f"\n{best_bus_company.get_route(line_number)}\n")
                                 actions = mm.get_update_option()
                                 if actions[0] == 4:
                                     break
@@ -67,7 +66,6 @@ if __name__ == '__main__':
                                         stops_to_update = mm.get_stops()
                                         best_bus_company.update_route(line_number, action, stops_to_update)
                                 print(f"Successfully updated route #{line_number}")
-                                pprint(f"\n{best_bus_company.get_route(line_number)}\n")
                             except RouteExistError as e:
                                 print(f"\n{e}\n")
                             break
@@ -82,7 +80,7 @@ if __name__ == '__main__':
                                 else:
                                     print("Current scheduled rides: ")
                                     for ride in scheduled_rides:
-                                        pprint(ride)
+                                        print(f"Ride ID: {ride[0]}\nRide Details:\n{ride[1]}\n")
                                 while True:
                                     try:
                                         ride_details = mm.get_scheduled_ride()
@@ -114,7 +112,6 @@ if __name__ == '__main__':
                                 try:
                                     route = best_bus_company.search_route(search_term, line_number)
                                     print(f"\n{route}\n")
-                                    print()
                                     if action == 2:
                                         pass
                                 except RouteExistError as e:
@@ -122,14 +119,42 @@ if __name__ == '__main__':
                             case 2:
                                 print("Searching by origin")
                                 origin = pm.get_origin()
+                                try:
+                                    route = best_bus_company.search_route(search_term, origin.lower())
+                                    for r in route:
+                                        print(f"\n{r}Stops:", end=" ")
+                                        for s in r.stops:
+                                            print(s, end=" ")
+                                        for sr in r.scheduled_rides:
+                                            print(f"\nRide ID: {sr[0]}\n{sr[1]}")
+                                except RouteExistError as e:
+                                    print(f"\n{e}\n")
                             case 3:
                                 print("Searching by destination")
                                 destination = pm.get_destination()
+                                try:
+                                    route = best_bus_company.search_route(search_term, destination.lower())
+                                    for r in route:
+                                        print(f"\n{r}Stops:", end=" ")
+                                        for s in r.stops:
+                                            print(s, end=" ")
+                                        for sr in r.scheduled_rides:
+                                            print(f"\nRide ID: {sr[0]}\n{sr[1]}")
+                                except RouteExistError as e:
+                                    print(f"\n{e}\n")
                             case 4:
                                 print("Searching by bus stop")
                                 bus_stop = pm.get_stop()
-                            case 5:
-                                print("Going back to main menu")
+                                try:
+                                    route = best_bus_company.search_route(search_term, bus_stop.lower())
+                                    for r in route:
+                                        print(f"\n{r}Stops:", end=" ")
+                                        for s in r.stops:
+                                            print(s, end=" ")
+                                        for sr in r.scheduled_rides:
+                                            print(f"\n\nRide ID: {sr[0]}\n{sr[1]}")
+                                except RouteExistError as e:
+                                    print(f"\n{e}\n")
                     case 2:
                         pass
                     case 3:
