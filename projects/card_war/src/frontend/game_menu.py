@@ -19,11 +19,10 @@ class GameMenu:
                     second_user_choice = "t"
                 else:
                     second_user_choice = "h"
-                break
+                return first_user_name, coin_mapping.get(first_user_choice.lower()), \
+                    second_user_name, coin_mapping.get(second_user_choice.lower())
             except Exception as e:
                 print(f"\n{e}\n")
-        return first_user_name, coin_mapping.get(first_user_choice.lower()), \
-            second_user_name, coin_mapping.get(second_user_choice.lower())
 
     @staticmethod
     def next_round(round_count):
