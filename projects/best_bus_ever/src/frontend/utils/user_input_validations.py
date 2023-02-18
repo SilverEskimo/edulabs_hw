@@ -87,6 +87,19 @@ class UserInputValidation:
         except ValueError:
             raise WrongDelayFormat("Error: delay should be a number of minutes")
 
+    @staticmethod
+    def valid_ride_time(origin_time, dest_time):
+        if len(origin_time) != 5 or len(dest_time) != 5:
+            raise WrongTimeFormat("Error: origin/destination has to be in the following format: hh:mm")
+        origin_hour = origin_time[:2]
+        dest_hour = dest_time[:2]
+        origin_min = origin_time[-2:]
+        dest_min = dest_time[-2:]
+        if (origin_hour > dest_hour) or (origin_hour == dest_hour and origin_min > dest_min):
+            raise WrongTimeFormat("Error: origin time cannot be greater than destination")
+        elif origin_hour == dest_hour and origin_min == dest_min:
+            raise WrongTimeFormat("Error: origin and destination time cannot be same")
+
 
 
 

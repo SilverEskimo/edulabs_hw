@@ -1,8 +1,10 @@
 import os
 import pickle
+from best_bus_ever.src.utils.utils import Utils
 from best_bus_ever.src.frontend.menu.menu import Menu
 from best_bus_ever.src.utils.main_utils import MainUtils
 from best_bus_ever.src.backend.best_bus_company import BestBusCompany
+
 
 if __name__ == '__main__':
     if not os.path.exists('bus_company.pickle'):
@@ -19,7 +21,8 @@ if __name__ == '__main__':
         elif role == 2:
             mu.passenger_action()
         elif role == 3:
-            print("Thank you. Bye Bye!")
+            Utils.save_animation()
+            print("Done!\nThank you. Bye Bye!")
             bus_company.save_data()
             exit(0)
 

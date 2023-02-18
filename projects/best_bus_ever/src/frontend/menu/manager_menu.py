@@ -63,6 +63,7 @@ class ManagerMenu(Menu):
                 origin_time = self.get_origin_time()
                 destination_time = self.get_destination_time()
                 Utils.convert_ride_times((origin_time, destination_time))
+                UserInputValidation.valid_ride_time(origin_time, destination_time)
                 break
             except WrongTimeFormat as e:
                 print(f"\n{e}\n")

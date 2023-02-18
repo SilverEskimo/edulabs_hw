@@ -19,7 +19,7 @@ class BestBusCompany:
                   stops: list):
         new_route = BusRoute(line_number, origin, destination, stops)
         if self._routes.get(line_number):
-            raise RouteExistError(BestBusCompany.error_message)
+            raise RouteExistError("Error: this route already exists")
         self._routes[line_number] = new_route
         return new_route
 

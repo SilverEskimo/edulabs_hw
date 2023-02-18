@@ -17,7 +17,10 @@ class MainUtils:
         print(f"{route}Stops:", end=" ")
         for s in route.stops:
             print(s, end=" ")
-        print("\n\nScheduled Rides:")
+        if route.scheduled_rides:
+            print("\n\nScheduled Rides:")
+        else:
+            print("\n\nThere are no scheduled rides for this line")
         for sr in route.scheduled_rides:
             print(25 * "-")
             print(f"Ride ID: {sr[0]}\n{sr[1]}Delays:")
@@ -147,7 +150,8 @@ class MainUtils:
                     print("\nCurrent scheduled rides: ")
                     for ride in scheduled_rides:
                         print(25 * "-")
-                        print(f"Ride ID: {ride[0]}\nRide Details:\n{ride[1]}")
+                        print(f"Ride ID: {ride[0]}\nRide Details:\n{ride[1]}Driver: {ride[1].driver}")
+                        print(f"")
                 while True:
                     try:
                         ride_details = self._mm.get_scheduled_ride()
