@@ -19,7 +19,6 @@ class CardWar:
         }
         self._api_connector = ApiConnector()
 
-
     card_mapping = {
         "2": 2,
         "3": 3,
@@ -90,13 +89,13 @@ class CardWar:
         first_card = self.get_user_state().get("user1").get("current_card").get("value")
         second_card = self.get_user_state().get("user2").get("current_card").get("value")
         if self.card_mapping[first_card.upper()] > self.card_mapping[second_card.upper()]:
-            print(f"{self._user_state_dict.get('user1').get('name').title()} won this round")
-            self._user_state_dict.get("user1")["total_round_wins"] += 1
+            self._user_state_dict.get("user1")[ "total_round_wins" ] += 1
+            return self._user_state_dict.get('user1').get('name').title()
         elif self.card_mapping[first_card.upper()] < self.card_mapping[second_card.upper()]:
-            print(f"{self._user_state_dict.get('user2').get('name').title()} won this round")
-            self._user_state_dict.get("user2")["total_round_wins"] += 1
+            self._user_state_dict.get("user2")[ "total_round_wins" ] += 1
+            return self._user_state_dict.get('user2').get('name').title()
         else:
-            print("Tie!")
+            return False
 
     def get_user_state(self):
         return self._user_state_dict
@@ -109,8 +108,7 @@ class CardWar:
             return user_state.get("user1").get("name")
         elif user2_wins > user1_wins:
             return user_state.get("user2").get("name")
-        else:
-            return False
+        return False
 
     def present_image(self):
         user_state = self.get_user_state()
@@ -122,5 +120,8 @@ class CardWar:
         image = Image.open("image.png")
         image.show()
 
+    def reset_state(self):
+        self.get_user_state().get("user1")["total_round_wins"] = 0
+        self.get_user_state().get("user2")["total_round_wins"] = 0
     def __str__(self):
         return str(self._user_state_dict)

@@ -24,6 +24,7 @@ class GameMenu:
                 print(f"\n{e}\n")
         return first_user_name, coin_mapping.get(first_user_choice.lower()), \
             second_user_name, coin_mapping.get(second_user_choice.lower())
+
     @staticmethod
     def next_round(round_count):
         while True:
@@ -35,6 +36,18 @@ class GameMenu:
                 return False
             except Exception as e:
                 print(f"\n{e}\n")
+
+    @staticmethod
+    def continue_game():
+        while True:
+            try:
+                continue_game = UserValidation.valid_proceed(input("Another one? (y/n): "))
+                if continue_game == "y":
+                    return True
+                return False
+            except Exception as e:
+                print(f"\n{e}\n")
+
     @staticmethod
     def declare_winner(winner_name: str):
         print(f"Congratulations {winner_name.title()}, you won!")
