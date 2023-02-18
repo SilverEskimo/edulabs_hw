@@ -52,3 +52,17 @@ class WrongTimeFormat(BestBusEverException):
 class WrongSearchTerm(BestBusEverException):
     def __init__(self, msg):
         super().__init__(msg)
+
+
+class WrongRideId(BestBusEverException):
+    def __init__(self, msg):
+        super().__init__(msg)
+
+
+class WrongDelayFormat(BestBusEverException):
+    def __init__(self, msg):
+        super().__init__(msg)
+
+class WrongDateFomat(BestBusEverException):
+    def __init__(self, msg):
+        super().__init__(msg)

@@ -1,5 +1,6 @@
-from best_bus_ever.src.backend.bus_route import BusRoute
+import pickle
 from best_bus_ever.src.utils.exceptions import *
+from best_bus_ever.src.backend.bus_route import BusRoute
 
 
 class BestBusCompany:
@@ -84,6 +85,16 @@ class BestBusCompany:
             if not ret_list:
                 raise RouteExistError("Error: there is not route with the provided stop")
             return ret_list
+        if search_term == 5:
+            for i, route in self._routes.items():
+                for j, ride in route.scheduled_rides:
+                    if value_to_search == ride.ride_id:
+                        return ride
+            raise WrongRideId("Error: the provided ride ID does not exist")
 
     def get_routes(self) -> dict[int, BusRoute]:
         return self._routes
+
+    def save_data(self):
+        with open('bus_company.pickle', 'wb') as fh:
+            pickle.dump(self, fh)

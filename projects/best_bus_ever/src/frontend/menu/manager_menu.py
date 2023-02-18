@@ -10,7 +10,7 @@ class ManagerMenu(Menu):
 
     @staticmethod
     def get_origin_time():
-        return input("Please enter the origin time in the following format hh:mm: ").strip()
+        return input("\nPlease enter the origin time in the following format hh:mm: ").strip()
 
     @staticmethod
     def get_destination_time():

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from best_bus_ever.src.utils.exceptions import *
 from best_bus_ever.src.frontend.utils.user_input_validations import UserInputValidation
+from best_bus_ever.src.utils.utils import Utils
 
 
 class Menu(ABC):
@@ -56,11 +57,38 @@ class Menu(ABC):
 
     @staticmethod
     def get_stops():
-        return input("Please enter a list of stops separated by space: ").strip()
+        return input("Please enter a list of stops separated by comma: ").strip()
 
     @staticmethod
     def get_stop():
         return input("Please enter a bus stop: ").strip()
+    @staticmethod
+    def get_scheduled_ride_id():
+        while True:
+            ride_id_input = input("Please enter the scheduled ride ID: ")
+            try:
+                ride_id_input = UserInputValidation.valid_ride_id(ride_id_input)
+                return ride_id_input
+            except WrongRideId as e:
+                print(f"\n{e}\n")
+
+    @staticmethod
+    def get_delay_in_mins():
+        while True:
+            delay = input("Please enter the delay time in minutes: ")
+            try:
+                return UserInputValidation.valid_delay(delay)
+            except WrongDelayFormat as e:
+                print(f"\n{e}\n")
+
+    @staticmethod
+    def get_delay_date():
+        date = input("Please enter the delay date in the following format dd/mm/yyyy: ")
+        while True:
+            try:
+                return Utils.convert_delay_date(date)
+            except WrongDelayFormat as e:
+                print(f"\n{e}\n")
 
     @abstractmethod
     def get_action(self):

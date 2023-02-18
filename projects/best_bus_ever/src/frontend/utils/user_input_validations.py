@@ -73,6 +73,22 @@ class UserInputValidation:
             raise WrongSearchTerm("Error: searching option should be 1, 2, 3 or 4")
         return term
 
+    @staticmethod
+    def valid_ride_id(ride_id_str):
+        try:
+            return int(ride_id_str)
+        except ValueError:
+            raise WrongRideId("Error: ride id should be a number")
+
+    @staticmethod
+    def valid_delay(delay):
+        try:
+            return int(delay)
+        except ValueError:
+            raise WrongDelayFormat("Error: delay should be a number of minutes")
+
+
+
 
 
 

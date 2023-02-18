@@ -8,7 +8,7 @@ class PassengerMenu(Menu):
         super().__init__()
 
     def get_action(self):
-        msg = "Please choose 1 of the following actions:\n" \
+        msg = "\nPlease choose 1 of the following actions:\n" \
               "(1) Search Route\n" \
               "(2) Report Delay\n" \
               "(3) Exit\n" \
@@ -24,7 +24,7 @@ class PassengerMenu(Menu):
 
     @staticmethod
     def get_search_route_menu():
-        msg = "Please choose one of the following searching options:\n(1) By Line Number\n(2) By Origin\n" \
+        msg = "\nPlease choose one of the following searching options:\n(1) By Line Number\n(2) By Origin\n" \
               "(3) By Destination\n(4) By Bus Stop\n(5) Back to main menu\nYour choice: "
         while True:
             try:

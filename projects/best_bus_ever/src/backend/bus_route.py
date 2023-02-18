@@ -49,19 +49,13 @@ class BusRoute:
         return self._list_of_stops
 
     @stops.setter
-    def stops(self, stops):
-        self._list_of_stops = stops
+    def stops(self, stops: str):
+        self._list_of_stops = stops.split(",")
 
     def __str__(self):
         return f"Line number: {self._line_number}\n" \
                f"Origin: {self._origin}\n" \
                f"Destination: {self._destination}\n"
 
-
-if __name__ == '__main__':
-    sr = ScheduledRide(1, datetime.time(hour=10, minute=20), datetime.time(hour=10, minute=51), "Yossi")
-    sr1 = ScheduledRide(2, datetime.time(hour=12, minute=30), datetime.time(hour=13, minute=51), "Asher")
-    b = BusRoute(1, "ala", "blaa", ["asd", "Adwe", "asd"], [sr, sr1])
-    print(b)
 
 
