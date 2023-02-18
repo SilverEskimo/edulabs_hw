@@ -123,5 +123,6 @@ class CardWar:
     def reset_state(self):
         self.get_user_state().get("user1")["total_round_wins"] = 0
         self.get_user_state().get("user2")["total_round_wins"] = 0
+
     def __str__(self):
         return str(self._user_state_dict)
