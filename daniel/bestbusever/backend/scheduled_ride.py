@@ -1,4 +1,3 @@
-
 class ScheduledRide:
     def __init__(self, origin_time, destination_time, driver_name):
         self._origin_time = origin_time
@@ -6,7 +5,6 @@ class ScheduledRide:
         self._driver_name = driver_name
         self._id = ""
         self._delays = 0
-
 
     def __str__(self):
         return f"Id: {self._id}\n"\
