@@ -1,7 +1,5 @@
 import random
-
 from bestbusever.backend.scheduled_ride import ScheduledRide
-
 
 class BusRoute:
     def __init__(self, line_number: int, origin: str, destination: str, list_of_stops: list[str]):
@@ -18,6 +16,15 @@ class BusRoute:
         scheduled_ride = ScheduledRide(origin_time, destination_time, driver)
         self._scheduled_rides[ride_id] = scheduled_ride
         return self
+
+    def set_origin(self, new_origin):
+        self._origin = new_origin
+
+    def set_destination(self, new_destination):
+        self._destination = new_destination
+
+    def set_stops(self, stops):
+        self._list_of_stops = stops
 
     def __repr__(self):
         return f"Line number: {self._line_number}\n"\

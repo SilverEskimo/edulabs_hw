@@ -1,5 +1,7 @@
-class Menu:
+import datetime
 
+
+class Menu:
 
     @staticmethod
     def main_menu():
@@ -12,9 +14,6 @@ class Menu:
                                  "Your Choice: ")
         return int(passenger_action)
 
-    @staticmethod
-    def search_route():
-        pass
 
     @staticmethod
     def manager_menu():
@@ -34,7 +33,8 @@ class Menu:
 
     @staticmethod
     def get_list_stop():
-        return input("Please insert stop stations separated by comma's: ")
+        stop_list = input("Please insert stop stations separated by comma's: ")
+        return stop_list.split(",")
 
     @staticmethod
     def get_destination():
@@ -58,7 +58,9 @@ class Menu:
 
     @staticmethod
     def get_origin_time():
-        return input("Origin Time? ")
+        o_t = input("Insert origin time in format 'hh-mm':  ")
+        converted_orig = datetime.datetime.strptime(o_t, "%H-%M")
+        return converted_orig.time()
 
     @staticmethod
     def get_driver():
@@ -66,6 +68,17 @@ class Menu:
 
     @staticmethod
     def get_dest_time():
-        return input("Destination Time? ")
+        d_t = input("Insert destination time in format 'hh-mm':  ")
+        converted_dest = datetime.datetime.strptime(d_t, "%H-%M")
+        return converted_dest.time()
+
+    @staticmethod
+    def search_by():
+        return int(input("By what do you wanna search?\n"
+                         "1.Line number \n"
+                         "2.Origin \n"
+                         "3.Destination \n"
+                         "4.Stop \n"
+                         " "))
 
 

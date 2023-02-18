@@ -1,7 +1,3 @@
-import random
-
-from bestbusever.frontend.menu import Menu
-
 
 class ScheduledRide:
     def __init__(self, origin_time, destination_time, driver_name):
@@ -13,7 +9,7 @@ class ScheduledRide:
 
 
     def __str__(self):
-        return f"Id: {self._id}\n" \
+        return f"Id: {self._id}\n"\
                f"Origin Time: {self._origin_time}\n" \
                f"Destination Time: {self._destination_time}\n"
 
@@ -21,11 +17,5 @@ class ScheduledRide:
         return f"Id: {self._id}\n" \
                f"Origin Time: {self._origin_time}\n" \
                f"Destination Time: {self._destination_time}\n"
-
-
-
-
-
-
 
 
