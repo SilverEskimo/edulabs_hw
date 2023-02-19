@@ -48,8 +48,7 @@ class CardWar:
         response = self._api_connector.get_call(url, headers=headers)
         if response.status_code < 400:
             return response.json()
-        else:
-            raise Exception(f"The flip coin API call failed with status code: {response.status_code}")
+        raise Exception(f"The flip coin API call failed with status code: {response.status_code}")
 
     def initiate_deck(self):
         url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
@@ -89,13 +88,12 @@ class CardWar:
         first_card = self.get_user_state().get("user1").get("current_card").get("value")
         second_card = self.get_user_state().get("user2").get("current_card").get("value")
         if self.card_mapping[first_card.upper()] > self.card_mapping[second_card.upper()]:
-            self._user_state_dict.get("user1")[ "total_round_wins" ] += 1
+            self._user_state_dict.get("user1")["total_round_wins"] += 1
             return self._user_state_dict.get('user1').get('name').title()
         elif self.card_mapping[first_card.upper()] < self.card_mapping[second_card.upper()]:
-            self._user_state_dict.get("user2")[ "total_round_wins" ] += 1
+            self._user_state_dict.get("user2")["total_round_wins"] += 1
             return self._user_state_dict.get('user2').get('name').title()
-        else:
-            return False
+        return False
 
     def get_user_state(self):
         return self._user_state_dict
@@ -126,3 +124,4 @@ class CardWar:
 
     def __str__(self):
         return str(self._user_state_dict)
+
