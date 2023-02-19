@@ -1,6 +1,5 @@
-import climage
-from card_war.src.backend.api_connector import ApiConnector
 from PIL import Image
+from card_war.src.backend.api_connector import ApiConnector
 
 
 class CardWar:
@@ -124,4 +123,3 @@ class CardWar:
 
     def __str__(self):
         return str(self._user_state_dict)
-
