@@ -50,8 +50,8 @@ if __name__ == '__main__':
                             exit(0)
                 count += 1
             count = 1
-            card_war.reset_state()
         except Exception as e:
             print(f"\n{e}\n")
+
 
 

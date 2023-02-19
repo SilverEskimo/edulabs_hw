@@ -46,7 +46,7 @@ class CardWar:
         url = "https://coin-flip1.p.rapidapi.com/headstails"
         print("Calling Flip Coin API: ")
         response = self._api_connector.get_call(url, headers=headers)
-        if response.status_code == 200:
+        if response.status_code < 400:
             return response.json()
         else:
             raise Exception(f"The flip coin API call failed with status code: {response.status_code}")
@@ -74,7 +74,7 @@ class CardWar:
         current_user = self._get_current_user()
         url = f"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=1"
         response = self._api_connector.get_call(url)
-        if response.status_code == 200:
+        if response.status_code < 400:
             user_state.get(current_user)["current_card"] = {
                 "code": response.json().get("cards")[0].get("code"),
                 "value": response.json().get("cards")[0].get("value"),
