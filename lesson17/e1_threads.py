@@ -2,12 +2,9 @@
 # At the first stage, you need to add to your code the ability to receive multiple names for nationality detection
 # (for example, separated by comma). At this stage, you should still run your code in one thread. Try passing 10 names
 # and log how much time it takes to get the results for all the names.
-import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, Future, as_completed
-import climage
 import requests
-
 
 
 def call_nationalize_api(some_name: str):
@@ -21,8 +18,8 @@ def call_nationalize_api(some_name: str):
     raise Exception(f"Got an error: status code: {res.status_code}")
 
 
-def call_country_code_api(future: Future):
-    param = future.result()
+def call_country_code_api(f: Future):
+    param = f.result()
     print(param)
     url = f"https://restcountries.com/v3.1/alpha/{param['country'][0]['country_id'].lower()}"
     res = requests.get(url)
@@ -57,10 +54,9 @@ if __name__ == '__main__':
             for name in fixed_names_list:
                 future = executor.submit(call_nationalize_api, name)
                 futures.append(future)
-
             for future in as_completed(futures):
                 call_country_code_api(future)
         end = time.time()
-        print(f"It took: {end - start}")
+        print(f"It took: {end - start} seconds")
     except Exception as e:
         print(e)
