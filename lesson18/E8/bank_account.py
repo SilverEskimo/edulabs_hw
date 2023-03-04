@@ -6,13 +6,13 @@ class BankAccount:
     def __init__(self, owner_id: int, full_name: str):
         self._owner_id = owner_id
         self._full_name = full_name
-        self._balance = 0
+        self._balance = 0.0
         self._transactions_list = []
         self._balance_lock = Lock()
         self._general_lock = Lock()
 
     @staticmethod
-    def lock(function: callable):
+    def lock(function: callable) -> callable:
         if function.__name__ in ("balance", "deposit", "withdraw"):
             def wrapping_function(*args, **kwargs):
                 with args[0].get_balance_lock():
@@ -25,35 +25,35 @@ class BankAccount:
 
     @property
     @lock
-    def balance(self):
+    def balance(self) -> float:
         return self._balance
 
     @balance.setter
     @lock
-    def balance(self, amount: float):
+    def balance(self, amount: float) -> None:
         self._balance += amount
 
     @lock
-    def deposit(self, amount_to_deposit):
+    def deposit(self, amount_to_deposit) -> None:
         self._balance += amount_to_deposit
         self.tx_history = amount_to_deposit
 
     @lock
-    def withdraw(self, amount_to_withdraw: float):
+    def withdraw(self, amount_to_withdraw: float) -> None:
         self._balance -= amount_to_withdraw
         self.tx_history = amount_to_withdraw
 
     @property
-    def tx_history(self):
+    def tx_history(self) -> list[float]:
         return self._transactions_list
 
     @tx_history.setter
     @lock
-    def tx_history(self, amount: float):
+    def tx_history(self, amount: float) -> None:
         self._transactions_list.append(amount)
 
-    def get_balance_lock(self):
+    def get_balance_lock(self) -> Lock:
         return self._balance_lock
 
-    def get_general_lock(self):
+    def get_general_lock(self) -> Lock:
         return self._general_lock
