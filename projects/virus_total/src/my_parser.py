@@ -3,7 +3,6 @@ import argparse
 
 class MyParser:
     def __init__(self):
-        super().__init__()
         self._parser = argparse.ArgumentParser(
             prog="VirusTotal extended scanner",
             description="Allows you to scan a URL by using VirusTotal API",
