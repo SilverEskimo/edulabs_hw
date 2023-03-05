@@ -1,7 +1,6 @@
 import threading
-
 import requests
-from virus_total.src.utils.exceptions import *
+from .utils.exceptions import *
 
 
 class ApiConnector:
@@ -16,13 +15,14 @@ class ApiConnector:
         return self._api_key
 
     def get_request(self, url, headers: dict | bool = False):
-        print(threading.get_ident())
         if headers:
             res = requests.get(url, headers=headers)
         else:
             res = requests.get(url, headers=self._headers)
-        if res.status_code < 400:
+        if res.status_code < 400 and res.status_code != 404:
             return res.json()
+        if res.status_code == 404:
+            return (url.split("/"))[-1]
         raise ApiCallError(f"The GET API request to {url} "
                            f"failed with the following status code: {res.status_code}")
 

@@ -62,6 +62,7 @@ class Menu(ABC):
     @staticmethod
     def get_stop():
         return input("Please enter a bus stop: ").strip()
+
     @staticmethod
     def get_scheduled_ride_id():
         while True:
