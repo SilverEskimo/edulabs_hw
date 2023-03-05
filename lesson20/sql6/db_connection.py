@@ -11,16 +11,6 @@ class DBConnector:
             user="postgres"
         )
 
-        with self._connection:
-            with self._connection.cursor() as cur:
-                query = f"""
-                    select * from {self._db_name}
-                    where movie_name = 'The Dark Knight'
-                """
-                cur.execute(query)
-                res = cur.fetchone()
-                print(res)
-
     def check_if_movie_in_db(self, movie):
         query = f"""
             select * from {self._db_name}
