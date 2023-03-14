@@ -7,34 +7,47 @@ from concurrent.futures import ThreadPoolExecutor
 app = Flask("NLP_WEB_Server")
 my_spacy = MySpacy()
 executor = ThreadPoolExecutor()
+
+
 @app.route("/api/v1/sentences", methods=['POST'])
 def sentences():
-    return jsonify(my_spacy.sentences(request.form))
+    res = my_spacy.generate_task_id()
+    executor.submit(my_spacy.sentences, request.form, res["task_id"])
+    return jsonify(res)
 
 
 @app.route("/api/v1/pos", methods=['POST'])
 def pos():
+    res = my_spacy.generate_task_id()
     query_params = request.args if request.args else None
-    return jsonify(my_spacy.pos(request.form, query_params))
+    executor.submit(my_spacy.pos, request.form, query_params, res["task_id"])
+    return jsonify(res)
 
 
 @app.route("/api/v1/named_ents", methods=['POST'])
 def named_entities():
-    task_id = uuid.uuid4()
-    res = {
-        "task_id": task_id
-    }
-    executor.submit(my_spacy.named_entities, request.form, task_id)
+    res = my_spacy.generate_task_id()
+    executor.submit(my_spacy.named_entities, request.form, res["task_id"])
     return jsonify(res)
 
 
-@app.route("/api/v1/tasks/<uuid:task_id>/status", methods=['GET'])
+@app.route("/api/v1/tasks/<task_id>/status", methods=['GET'])
 def get_status(task_id):
     return jsonify(
         {
             "status": my_spacy.get_state(task_id)
         }
     )
+
+
+@app.route("/api/v1/tasks/<task_id>/result", methods=['GET'])
+def get_result(task_id):
+    return jsonify(my_spacy.get_task(task_id))
+
+
+@app.route("/api/v1/tasks", methods=['GET'])
+def get_tasks():
+    return jsonify(my_spacy.get_all_tasks())
 
 
 if __name__ == '__main__':
