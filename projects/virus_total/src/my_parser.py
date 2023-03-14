@@ -11,10 +11,10 @@ class MyParser:
         self._parser.add_argument('-k', '--apiKey', help="API Key to use (optional)", metavar="API Key")
         self._parser.add_argument('-s', '--scan', action='store_true', help="Scan the URL even if exists in cache")
         self._parser.add_argument('-a', '--maxAge', type=int, metavar="Max Age",
-                                  help="Provide a custom maximum caching time (default is 6 months")
+                                  help="Provide a custom maximum caching time in days (default is 180 days")
+
         self._args = self._parser.parse_args()
 
     @property
     def args(self):
         return self._args
-

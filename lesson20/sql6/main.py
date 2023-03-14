@@ -8,9 +8,9 @@ if __name__ == '__main__':
     args = parser.args
 
     if args.name:
-        res = db.check_if_movie_in_db(args.name)
-        if res:
-            print(f"Release date: {res[ 0 ]}\nRating: {res[ 1 ]}")
+        r = db.check_if_movie_in_db(args.name)
+        if r:
+            print(f"Release date: {r[0]}\nRating: {r[1]}")
         else:
             print("The movie does not exist")
     elif args.rating:
@@ -20,7 +20,7 @@ if __name__ == '__main__':
         else:
             print(f"Movies with rating above {args.rating}: ")
             for r in res:
-                print(r.title())
+                print(f"Name: {r[0].title()}, Rating: {r[1]}")
     else:
         print("Nothing to do, bye bye")
         exit(0)
