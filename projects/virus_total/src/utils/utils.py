@@ -13,11 +13,11 @@ file_mapping = {
 }
 
 
-def encode_url(url: str):
+def encode_url(url: str) -> str:
     return base64.urlsafe_b64encode(url.encode()).decode().strip("=")
 
 
-def format_url(url: str):
+def format_url(url: str) -> str:
     if url.startswith('http://'):
         return url.replace('http://', "")
     if url.startswith('https://'):
@@ -25,7 +25,7 @@ def format_url(url: str):
     return url
 
 
-def search_file_name(url: str):
+def search_file_name(url: str) -> str:
     formatted_url = format_url(url)
     for key, value in file_mapping.items():
         if formatted_url[0] in value:
@@ -33,6 +33,6 @@ def search_file_name(url: str):
     raise IllegalURL("Illegal url (starts with non alphanumeric):", url)
 
 
-def check_if_aged(last_scan, max_age):
+def check_if_aged(last_scan: int, max_age: int) -> bool:
     aged_epoch = (datetime.datetime.today() - datetime.timedelta(max_age)).strftime('%s')
     return last_scan < int(aged_epoch)

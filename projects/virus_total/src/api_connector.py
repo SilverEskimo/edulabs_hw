@@ -12,10 +12,10 @@ class ApiConnector:
         }
 
     @property
-    def api_key(self):
+    def api_key(self) -> str:
         return self._api_key
 
-    def get_analysis_request(self, url):
+    def get_analysis_request(self, url: str) -> dict:
         encoded_url = utils.encode_url(url)
         res = ApiConnector._get_request("/".join([self._base_url, encoded_url]), self._headers)
         if res.status_code < 400:
@@ -29,7 +29,7 @@ class ApiConnector:
         raise ApiCallError(f"The GET API request to {url} "
                            f"failed with the following status code: {res.status_code}")
 
-    def post_scan_request(self, body: any):
+    def post_scan_request(self, body: dict) -> dict:
         res = ApiConnector._post_request(self._base_url, body, self._headers)
         if res.status_code < 400:
             return res.json()
@@ -39,9 +39,9 @@ class ApiConnector:
                            f"failed with the following status code: {res.status_code}")
 
     @staticmethod
-    def _post_request(url, body, headers):
+    def _post_request(url: str, body: dict, headers: dict):
         return requests.post(url, data=body, headers=headers)
 
     @staticmethod
-    def _get_request(url, headers):
+    def _get_request(url: str, headers: dict):
         return requests.get(url, headers=headers)
